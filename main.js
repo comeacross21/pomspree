@@ -1,7 +1,7 @@
 
 const generateBtn = document.getElementById('generate-btn');
 const lottoBalls = document.querySelectorAll('.lotto-ball');
-const playerImg = document.getElementById('player-img');
+const dragonImg = document.getElementById('dragon-img');
 const canvas = document.getElementById('falling-coins-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -63,7 +63,13 @@ window.addEventListener('resize', () => {
 });
 
 generateBtn.addEventListener('click', () => {
-    playerImg.classList.add('swing-animation');
+    // Reset balls
+    lottoBalls.forEach(ball => {
+        ball.style.opacity = 0;
+        ball.style.transform = 'translateY(100px)';
+    });
+
+    dragonImg.classList.add('breath-animation');
 
     setTimeout(() => {
         const numbers = new Set();
@@ -82,8 +88,8 @@ generateBtn.addEventListener('click', () => {
             ball.style.transitionDelay = `${index * 0.1}s`;
         });
 
-        playerImg.classList.remove('swing-animation');
-    }, 500); // Corresponds to the animation duration
+        dragonImg.classList.remove('breath-animation');
+    }, 1000); // Increased duration to match the 1s breath-animation
 });
 
 function getBallColor(number) {

@@ -39,13 +39,15 @@ h1 {
     margin-bottom: 30px;
 }
 
-#player-img {
+#dragon-img {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 200px; /* Adjust size as needed */
-    transition: transform 0.5s ease; /* Add transition for smooth movement */
+    width: 300px; /* Adjust size for the dragon */
+    height: auto;
+    transition: transform 0.5s ease;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
 }
 
 .lotto-numbers {
@@ -53,7 +55,7 @@ h1 {
     justify-content: center;
     gap: 15px;
     position: absolute;
-    bottom: 100px; /* Position numbers above the player */
+    bottom: 120px; /* Position numbers relative to the dragon */
     width: 100%;
 }
 
@@ -89,19 +91,19 @@ h1 {
     background-color: #0056b3;
 }
 
-/* Animation for the bat swing */
-@keyframes bat-swing {
+/* Animation for the dragon breathing */
+@keyframes dragon-breath {
     0% {
-        transform: translateX(-50%) rotate(0deg);
+        transform: translateX(-50%) scale(1);
     }
     50% {
-        transform: translateX(-50%) rotate(-60deg);
+        transform: translateX(-50%) scale(1.05);
     }
     100% {
-        transform: translateX(-50%) rotate(0deg);
+        transform: translateX(-50%) scale(1);
     }
 }
 
-.swing-animation {
-    animation: bat-swing 0.5s ease-in-out;
+.breath-animation {
+    animation: dragon-breath 1s ease-in-out;
 }
