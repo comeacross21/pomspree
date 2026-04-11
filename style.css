@@ -222,6 +222,26 @@ h1 {
     transform: translateY(0);
 }
 
+/* Comments Section Styles */
+.comments-section {
+    width: 100%;
+    max-width: 600px;
+}
+
+.comments-card {
+    background: var(--form-card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+}
+
+.comments-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
 @media (max-width: 480px) {
     .lotto-ball {
         width: 45px;
@@ -233,7 +253,7 @@ h1 {
         gap: 8px;
     }
     
-    .form-card {
+    .form-card, .comments-card {
         padding: 25px;
     }
 }

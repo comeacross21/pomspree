@@ -13,14 +13,16 @@ This project is a simple web-based lottery number generator with a modern, inter
 *   **Responsiveness:** The layout is responsive and adapts to different screen sizes.
 *   **Background:** A dynamic background with falling gold coins to enhance the theme of wealth and luck.
 *   **Partnership Inquiry Form:** A modern, integrated form powered by Formspree for business inquiries.
+*   **Comments System:** Integrated Disqus comment thread for user engagement and feedback.
 
 ## History of Changes
 
 *   **Initial Version:** Basic lotto number generation logic and UI.
 *   **Visual Enhancements:** Added falling coins animation, dark mode toggle, and glassmorphism styling.
+*   **Partnership Integration:** Added Formspree-powered inquiry form and AJAX submission.
 
 ## Current Plan
 
-*   **HTML:** Add a partnership inquiry section with a Formspree-ready form to `index.html`.
-*   **CSS:** Style the form to match the existing aesthetic, ensuring it supports dark mode and has a "lifted" feel with shadows.
-*   **JavaScript:** Ensure the page layout supports scrolling to the new form section.
+*   **HTML:** Add a section for Disqus comments at the bottom of the page in `index.html`.
+*   **CSS:** Add spacing and styling for the comments container in `style.css`.
+*   **JavaScript:** Configure Disqus to load properly with the site's URL.
