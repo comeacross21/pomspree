@@ -126,3 +126,62 @@ function getBallColor(number) {
     if (number <= 40) return '#aaa';    // Gray
     return '#b0d840';                   // Green
 }
+
+// --- Partnership Form Logic ---
+const inquiryForm = document.getElementById('inquiry-form');
+
+if (inquiryForm) {
+    inquiryForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const status = document.createElement('p');
+        status.id = 'form-status';
+        status.style.marginTop = '20px';
+        status.style.fontWeight = 'bold';
+        status.style.textAlign = 'center';
+        
+        const data = new FormData(e.target);
+        const submitBtn = e.target.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = '보내는 중...';
+
+        try {
+            const response = await fetch(e.target.action, {
+                method: e.target.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                status.textContent = '문의가 성공적으로 전송되었습니다. 감사합니다!';
+                status.style.color = '#28a745';
+                inquiryForm.reset();
+            } else {
+                const result = await response.json();
+                if (Object.hasOwn(result, 'errors')) {
+                    status.textContent = result.errors.map(error => error.message).join(", ");
+                } else {
+                    status.textContent = '문제가 발생했습니다. 잠시 후 다시 시도해주세요.';
+                }
+                status.style.color = '#dc3545';
+            }
+        } catch (error) {
+            status.textContent = '서버 통신 중 오류가 발생했습니다.';
+            status.style.color = '#dc3545';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            
+            const existingStatus = document.getElementById('form-status');
+            if (existingStatus) existingStatus.remove();
+            inquiryForm.appendChild(status);
+            
+            setTimeout(() => {
+                if (status) status.fadeOut ? status.fadeOut() : status.remove();
+            }, 5000);
+        }
+    });
+}
