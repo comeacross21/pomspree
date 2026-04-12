@@ -10,6 +10,8 @@
     --input-border: #ddd;
     --form-card-bg: rgba(255, 255, 255, 0.95);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --footer-bg: #f8f9fa;
 }
 
 body.dark-mode {
@@ -23,6 +25,8 @@ body.dark-mode {
     --input-border: #444;
     --form-card-bg: rgba(35, 35, 35, 0.95);
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --nav-bg: rgba(45, 45, 45, 0.8);
+    --footer-bg: #222;
 }
 
 body {
@@ -32,8 +36,8 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     color: var(--text-color);
     min-height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 #falling-coins-canvas {
@@ -45,20 +49,60 @@ body {
     z-index: -1;
 }
 
-#theme-toggle {
+/* Navigation Bar */
+.navbar {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    box-sizing: border-box;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--btn-bg);
+}
+
+#theme-toggle {
+    padding: 8px 15px;
     border-radius: 20px;
     border: none;
     background-color: var(--btn-bg);
     color: white;
     cursor: pointer;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-size: 0.8rem;
     transition: background-color 0.3s ease;
-    z-index: 100;
 }
 
 #theme-toggle:hover {
@@ -66,10 +110,11 @@ body {
 }
 
 .container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 80px 20px;
+    padding: 100px 20px 60px;
     gap: 60px;
 }
 
@@ -141,29 +186,45 @@ h1 {
     transform: translateY(0) scale(0.98);
 }
 
-/* Partnership Section Styles */
-.partnership-section {
+/* Text Content Sections */
+.intro-text, .content-article {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
+    line-height: 1.8;
+    text-align: left;
 }
 
-.form-card {
+.intro-text h2, .content-article h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--btn-bg);
+    padding-left: 15px;
+}
+
+.intro-text p, .content-article p {
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+/* Partnership Section Styles */
+.partnership-section, .comments-section {
+    width: 100%;
+    max-width: 800px;
+}
+
+.form-card, .comments-card, .article-card {
     background: var(--form-card-bg);
     padding: 40px;
     border-radius: 20px;
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
+    margin-bottom: 40px;
 }
 
-.form-card h2 {
+.form-card h2, .comments-card h2, .article-card h2 {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 24px;
-}
-
-.form-card p {
-    margin-bottom: 30px;
-    opacity: 0.8;
 }
 
 .form-group {
@@ -192,13 +253,6 @@ h1 {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group input:focus, 
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--btn-bg);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
-}
-
 .submit-btn {
     width: 100%;
     padding: 15px;
@@ -209,51 +263,82 @@ h1 {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
-.submit-btn:hover {
-    background-color: var(--btn-hover);
-    transform: translateY(-2px);
-}
-
-.submit-btn:active {
-    transform: translateY(0);
-}
-
-/* Comments Section Styles */
-.comments-section {
+/* Ad Container Styles */
+.ad-container {
     width: 100%;
-    max-width: 600px;
-}
-
-.comments-card {
-    background: var(--form-card-bg);
-    padding: 40px;
-    border-radius: 20px;
+    max-width: 800px;
+    background: var(--machine-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
     box-shadow: var(--shadow);
     backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
 }
 
-.comments-card h2 {
-    margin-top: 0;
+/* Footer Styles */
+.site-footer {
+    background: var(--footer-bg);
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: auto;
+    border-top: 1px solid var(--input-border);
+}
+
+.footer-links {
     margin-bottom: 20px;
-    font-size: 24px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin: 0 10px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: var(--btn-bg);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* FAQ Styles */
+.faq-list {
+    text-align: left;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+}
+
+.faq-item h3 {
+    color: var(--btn-bg);
+    margin-bottom: 10px;
 }
 
 @media (max-width: 480px) {
+    .navbar {
+        padding: 0 15px;
+    }
+    .nav-links {
+        display: none; /* Hide on mobile for simplicity, or add a hamburger */
+    }
     .lotto-ball {
         width: 45px;
         height: 45px;
         font-size: 18px;
     }
-    
-    .lotto-numbers {
-        gap: 8px;
-    }
-    
-    .form-card, .comments-card {
-        padding: 25px;
+    .container {
+        padding-top: 80px;
     }
 }
