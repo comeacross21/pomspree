@@ -381,10 +381,25 @@ h1 {
 
 @media (max-width: 480px) {
     .navbar {
-        padding: 0 15px;
+        padding: 10px 15px;
+        flex-direction: column;
+        height: auto;
+    }
+    .nav-logo {
+        margin-bottom: 10px;
     }
     .nav-links {
-        display: none; /* Hide on mobile for simplicity, or add a hamburger */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .nav-links li {
+        margin: 0;
+    }
+    .nav-links a {
+        font-size: 0.85rem;
     }
     .lotto-ball {
         width: 45px;
@@ -392,6 +407,6 @@ h1 {
         font-size: 18px;
     }
     .container {
-        padding-top: 80px;
+        padding-top: 130px;
     }
 }
