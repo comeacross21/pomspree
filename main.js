@@ -1,7 +1,7 @@
 
 const generateBtn = document.getElementById('generate-btn');
 const themeToggleBtn = document.getElementById('theme-toggle');
-const lottoBalls = document.querySelectorAll('.lotto-ball');
+const lottoContainer = document.getElementById('lotto-container');
 const canvas = document.getElementById('falling-coins-canvas');
 
 // --- Theme Logic ---
@@ -42,26 +42,41 @@ if (canvas) {
     canvas.height = window.innerHeight;
 
     let coins = [];
+    const coinImg = new Image();
+    // 사용자가 원하는 이미지 URL로 변경 가능합니다.
+    coinImg.src = 'https://github.com/comeacross21/pomspree/blob/main/images/money.webp?raw=true'; // 기본 동전 이미지 예시
 
     function Coin(x, y, radius, speed) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.speed = speed;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 2 - 1;
     }
 
     Coin.prototype.draw = function() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = document.body.classList.contains('dark-mode') ? '#ffd700' : 'gold';
-        ctx.fill();
-        ctx.closePath();
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        
+        if (coinImg.complete && coinImg.naturalWidth !== 0) {
+            ctx.drawImage(coinImg, -this.radius, -this.radius, this.radius * 2, this.radius * 2);
+        } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = document.body.classList.contains('dark-mode') ? '#ffd700' : 'gold';
+            ctx.fill();
+            ctx.closePath();
+        }
+        ctx.restore();
     }
 
     Coin.prototype.update = function() {
         this.y += this.speed;
-        if (this.y > window.innerHeight) {
-            this.y = -this.radius;
+        this.rotation += this.rotationSpeed;
+        if (this.y > window.innerHeight + this.radius * 2) {
+            this.y = -this.radius * 2;
             this.x = Math.random() * window.innerWidth;
         }
         this.draw();
@@ -97,42 +112,67 @@ if (canvas) {
 }
 
 // --- Lotto Generation ---
-if (generateBtn && lottoBalls.length > 0) {
-    generateBtn.addEventListener('click', () => {
-        // Reset balls
-        lottoBalls.forEach(ball => {
-            ball.style.opacity = 0;
-            ball.style.transform = 'translateY(50px)';
-        });
-
-        // Short delay for "generation" feel
-        setTimeout(() => {
-            const numbers = new Set();
-            while (numbers.size < 6) {
-                const randomNum = Math.floor(Math.random() * 45) + 1;
-                numbers.add(randomNum);
-            }
-
-            const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
-            lottoBalls.forEach((ball, index) => {
-                ball.textContent = sortedNumbers[index];
-                ball.style.backgroundColor = getBallColor(sortedNumbers[index]);
-                ball.style.opacity = 1;
-                ball.style.transform = 'translateY(0)';
-                ball.style.transitionDelay = `${index * 0.1}s`;
-                ball.style.color = '#fff'; // White text for colored balls
-            });
-        }, 300);
-    });
-
+if (generateBtn && lottoContainer) {
     function getBallColor(number) {
-        if (number <= 10) return '#fbc400'; // Yellow
-        if (number <= 20) return '#69c8f2'; // Blue
-        if (number <= 30) return '#ff7272'; // Red
-        if (number <= 40) return '#aaa';    // Gray
-        return '#b0d840';                   // Green
+        if (number <= 10) return '#fbc400';
+        if (number <= 20) return '#69c8f2';
+        if (number <= 30) return '#ff7272';
+        if (number <= 40) return '#aaa';
+        return '#b0d840';
     }
+
+    // Initial lotto display (empty balls)
+    function initLotto() {
+        lottoContainer.innerHTML = '';
+        for (let i = 0; i < 5; i++) {
+            const row = document.createElement('div');
+            row.className = 'lotto-numbers';
+            row.style.display = 'flex';
+            row.style.justifyContent = 'center';
+            row.style.gap = '10px';
+            row.style.marginBottom = '10px';
+            for (let j = 0; j < 6; j++) {
+                const ball = document.createElement('div');
+                ball.className = 'lotto-ball';
+                ball.style.opacity = '1';
+                ball.style.transform = 'translateY(0)';
+                row.appendChild(ball);
+            }
+            lottoContainer.appendChild(row);
+        }
+    }
+    initLotto();
+
+    generateBtn.addEventListener('click', () => {
+        const rows = lottoContainer.querySelectorAll('.lotto-numbers');
+        
+        rows.forEach((row, rowIndex) => {
+            const balls = row.querySelectorAll('.lotto-ball');
+            balls.forEach(ball => {
+                ball.style.opacity = 0;
+                ball.style.transform = 'translateY(20px)';
+            });
+
+            setTimeout(() => {
+                const numbers = new Set();
+                while (numbers.size < 6) {
+                    const randomNum = Math.floor(Math.random() * 45) + 1;
+                    numbers.add(randomNum);
+                }
+
+                const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+                balls.forEach((ball, index) => {
+                    ball.textContent = sortedNumbers[index];
+                    ball.style.backgroundColor = getBallColor(sortedNumbers[index]);
+                    ball.style.opacity = 1;
+                    ball.style.transform = 'translateY(0)';
+                    ball.style.transitionDelay = `${index * 0.05}s`;
+                    ball.style.color = '#fff';
+                });
+            }, rowIndex * 100);
+        });
+    });
 }
 
 // --- Meal Recommendation Logic ---
