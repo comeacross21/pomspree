@@ -51,7 +51,7 @@ body {
 
 /* Navigation Bar */
 .navbar {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -445,5 +445,8 @@ h1 {
     .ladder-setup div[style*="grid-template-columns"] {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
+    }
+}
+ 20px !important;
     }
 }

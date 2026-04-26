@@ -127,7 +127,7 @@ if (generateBtn && lottoContainer) {
         for (let i = 0; i < 5; i++) {
             const rowWrapper = document.createElement('div');
             rowWrapper.className = 'lotto-machine';
-            rowWrapper.style.padding = '15px';
+            rowWrapper.style.padding = '0.2cm 15px';
             rowWrapper.style.width = '100%';
             rowWrapper.style.boxSizing = 'border-box';
             rowWrapper.style.borderRadius = '20px';
@@ -560,6 +560,13 @@ if (inquiryForm) {
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
             const existingStatus = document.getElementById('form-status');
+            if (existingStatus) existingStatus.remove();
+            inquiryForm.appendChild(status);
+            setTimeout(() => { if (status) status.remove(); }, 5000);
+        }
+    });
+}
+mentById('form-status');
             if (existingStatus) existingStatus.remove();
             inquiryForm.appendChild(status);
             setTimeout(() => { if (status) status.remove(); }, 5000);
