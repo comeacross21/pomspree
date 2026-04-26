@@ -44,7 +44,7 @@ if (canvas) {
     let coins = [];
     const coinImg = new Image();
     // 사용자가 원하는 이미지 URL로 변경 가능합니다.
-    coinImg.src = 'https://github.com/comeacross21/pomspree/blob/main/images/money.webp?raw=true'; // 기본 동전 이미지 예시
+    coinImg.src = 'https://github.com/comeacross21/pomspree/blob/main/images/money.png?raw=true'; // 기본 동전 이미지 예시
 
     function Coin(x, y, radius, speed) {
         this.x = x;
@@ -84,8 +84,8 @@ if (canvas) {
 
     function createCoins() {
         coins = [];
-        for (let i = 0; i < 100; i++) {
-            let radius = Math.random() * 8 + 4;
+        for (let i = 0; i < 50; i++) { // Reduced count for better performance with larger images
+            let radius = Math.random() * 40 + 20; // 5x larger (range 20 to 60)
             let x = Math.random() * window.innerWidth;
             let y = Math.random() * -window.innerHeight;
             let speed = Math.random() * 2 + 1;

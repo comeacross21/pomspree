@@ -121,24 +121,34 @@ body {
 .lotto-machine {
     text-align: center;
     background: var(--machine-bg);
-    padding: 40px;
-    border-radius: 20px;
+    padding: 50px 40px;
+    border-radius: 30px;
     box-shadow: var(--shadow);
     width: 100%;
-    max-width: 600px;
-    backdrop-filter: blur(10px);
+    max-width: 800px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.lotto-machine .subtitle {
+    margin-bottom: 40px;
+    opacity: 0.8;
+    font-size: 1.1rem;
 }
 
 .animation-container {
-    height: 100px;
-    margin-bottom: 30px;
+    min-height: 200px;
+    margin-bottom: 40px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: auto;
 }
 
 .lotto-numbers {
