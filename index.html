@@ -10,16 +10,17 @@
       gtag('js', new Date());
 
       gtag('config', 'G-FLSQDCXNYJ');
+    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로또 번호 생성기 - 무료 행운 번호 추천 및 통계</title>
     <meta name="description" content="과학적인 난수 생성 알고리즘을 이용한 무료 로또 번호 생성기입니다. 행운의 번호를 확인하고 당첨 확률을 높여보세요.">
     <link rel="stylesheet" href="style.css">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6583728585614609"
      crossorigin="anonymous"></script>
-    </head>
-    <body>
+</head>
+<body>
     <nav class="navbar">
         <a href="index.html" class="nav-logo">LottoGen</a>
         <ul class="nav-links">
@@ -33,25 +34,21 @@
     </nav>
 
     <canvas id="falling-coins-canvas"></canvas>
-
+    
     <main class="container">
-    <div class="lotto-machine" style="margin-bottom: 1cm;">
-        <h1 style="margin-bottom: 10px;">로또 번호 생성기</h1>
-        <p class="subtitle" style="margin-bottom: 0;">과학적인 난수 생성 알고리즘으로 오늘의 행운을 시험해보세요.</p>
-    </div>
-
-    <div class="animation-container" style="min-height: auto; margin-bottom: 1cm; width: 100%; max-width: 800px;">
-        <div id="lotto-container" style="display: flex; flex-direction: column; gap: 0.3cm; width: 100%;">
-            <!-- 5 rows of lotto balls will be injected here via JavaScript -->
-        </div>
-    </div>
-
-    <div class="lotto-machine" style="margin-bottom: 20px;">
-        <button id="generate-btn" style="margin-bottom: 0;">번호 생성하기</button>
-    </div>
-
         <div class="lotto-machine">
-            <div class="intro-text" style="padding-top: 0; margin-top: 0;">
+            <h1>로또 번호 생성기</h1>
+            <p class="subtitle">과학적인 난수 생성 알고리즘으로 오늘의 행운을 시험해보세요.</p>
+            
+            <div class="animation-container">
+                <div id="lotto-container" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+                    <!-- 5 rows of lotto balls will be injected here via JavaScript -->
+                </div>
+            </div>
+            
+            <button id="generate-btn" style="margin-bottom: 50px;">번호 생성하기</button>
+
+            <div class="intro-text" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 40px; margin-top: 20px;">
                 <h2 style="font-size: 1.5rem;">서비스 안내</h2>
                 <p>본 서비스는 최신 난수 생성 알고리즘을 사용하여 사용자에게 공정하고 무작위인 로또 번호를 추천해 드립니다. 1부터 45까지의 숫자 중 6개를 맞히는 로또 6/45의 확률적 무작위성을 최대한 반영하였습니다.</p>
                 

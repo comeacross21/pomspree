@@ -429,7 +429,7 @@ h1 {
     }
     .container {
         padding: 130px 10px 60px;
-        gap: 0;
+        gap: 30px;
         width: 100%;
         box-sizing: border-box;
         overflow-x: hidden;
