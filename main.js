@@ -125,6 +125,13 @@ if (generateBtn && lottoContainer) {
     function initLotto() {
         lottoContainer.innerHTML = '';
         for (let i = 0; i < 5; i++) {
+            const rowWrapper = document.createElement('div');
+            rowWrapper.className = 'lotto-machine';
+            rowWrapper.style.padding = '15px';
+            rowWrapper.style.width = '100%';
+            rowWrapper.style.boxSizing = 'border-box';
+            rowWrapper.style.borderRadius = '20px';
+
             const row = document.createElement('div');
             row.className = 'lotto-numbers';
             row.style.display = 'flex';
@@ -137,7 +144,8 @@ if (generateBtn && lottoContainer) {
                 ball.style.transform = 'translateY(0)';
                 row.appendChild(ball);
             }
-            lottoContainer.appendChild(row);
+            rowWrapper.appendChild(row);
+            lottoContainer.appendChild(rowWrapper);
         }
     }
     initLotto();
