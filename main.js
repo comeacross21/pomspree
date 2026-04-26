@@ -127,7 +127,7 @@ if (generateBtn && lottoContainer) {
         for (let i = 0; i < 5; i++) {
             const rowWrapper = document.createElement('div');
             rowWrapper.className = 'lotto-machine';
-            rowWrapper.style.padding = '15px';
+            rowWrapper.style.padding = '8px 15px';
             rowWrapper.style.width = 'auto';
             rowWrapper.style.maxWidth = 'none';
             rowWrapper.style.borderRadius = '20px';

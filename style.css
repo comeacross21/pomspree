@@ -405,6 +405,7 @@ h1 {
         width: 45px;
         height: 45px;
         font-size: 18px;
+        flex-shrink: 0;
     }
     .container {
         padding-top: 130px;
