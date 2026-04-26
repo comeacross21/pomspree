@@ -350,7 +350,12 @@ function setupGameUI() {
     // Calculate required width based on player count
     const minWidth = vCount * 80; // Ensure enough space for each player
     const width = Math.max(minWidth, Math.min(window.innerWidth * 0.9, 1000));
-    const height = 500;
+    
+    // Adjust height based on viewport to fit labels and canvas in one screen
+    let height = 500;
+    if (window.innerHeight < 800) {
+        height = Math.max(250, window.innerHeight - 350); 
+    }
     
     ladderCanvas.width = width;
     ladderCanvas.height = height;
