@@ -320,6 +320,7 @@ if (toGameBtn) {
         ladderSetupCard.style.display = 'none';
         gameArea.style.display = 'flex';
         startExecutionBtn.style.display = 'block';
+        startExecutionBtn.textContent = '실행하기';
         executionInfo.textContent = '실행 버튼을 눌러주세요.';
     });
 }
