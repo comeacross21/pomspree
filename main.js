@@ -8,7 +8,8 @@ const step2 = document.getElementById('step-2');
 const toStep2Btn = document.getElementById('to-step-2');
 const toGameBtn = document.getElementById('to-game');
 const playerCountInput = document.getElementById('player-count');
-const playerInputsContainer = document.getElementById('player-inputs');
+const playerNamesContainer = document.getElementById('player-names-container');
+const playerOutcomesContainer = document.getElementById('player-outcomes-container');
 const gameArea = document.getElementById('game-area');
 const ladderCanvas = document.getElementById('ladder-canvas');
 const topLabels = document.getElementById('top-labels');
@@ -30,15 +31,35 @@ if (toStep2Btn) {
         const count = parseInt(playerCountInput.value);
         if (count < 2 || count > 10) return alert('2명에서 10명 사이로 입력해주세요.');
         
-        playerInputsContainer.innerHTML = '';
+        playerNamesContainer.innerHTML = '';
+        playerOutcomesContainer.innerHTML = '';
+        
         for (let i = 0; i < count; i++) {
-            playerInputsContainer.innerHTML += `
-                <div class="participant-input-group">
-                    <label>참가자 ${i+1}</label>
-                    <input type="text" class="player-name" placeholder="이름" value="사람 ${i+1}">
-                    <input type="text" class="player-outcome" placeholder="결과" value="${i === 0 ? '당첨' : '꽝'}">
-                </div>
-            `;
+            // Add name input
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.className = 'player-name';
+            nameInput.placeholder = `참가자 ${i+1}`;
+            nameInput.value = `사람 ${i+1}`;
+            nameInput.style.padding = '10px';
+            nameInput.style.borderRadius = '5px';
+            nameInput.style.border = '1px solid var(--input-border)';
+            nameInput.style.backgroundColor = 'var(--input-bg)';
+            nameInput.style.color = 'var(--text-color)';
+            playerNamesContainer.appendChild(nameInput);
+
+            // Add outcome input
+            const outcomeInput = document.createElement('input');
+            outcomeInput.type = 'text';
+            outcomeInput.className = 'player-outcome';
+            outcomeInput.placeholder = `결과 ${i+1}`;
+            outcomeInput.value = i === 0 ? '당첨' : '꽝';
+            outcomeInput.style.padding = '10px';
+            outcomeInput.style.borderRadius = '5px';
+            outcomeInput.style.border = '1px solid var(--input-border)';
+            outcomeInput.style.backgroundColor = 'var(--input-bg)';
+            outcomeInput.style.color = 'var(--text-color)';
+            playerOutcomesContainer.appendChild(outcomeInput);
         }
         
         step1.classList.remove('active');

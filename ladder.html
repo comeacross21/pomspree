@@ -114,11 +114,24 @@
 
             <!-- Step 2: Names and Outcomes -->
             <div id="step-2" class="step-container">
-                <p>참가자 이름과 결과를 입력해주세요.</p>
-                <div id="player-inputs" class="input-grid">
-                    <!-- Dynamic inputs here -->
+                <p>참가자 이름과 결과를 각각 입력해주세요.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <h3 style="font-size: 1rem; margin-bottom: 15px;">참가자 이름</h3>
+                        <div id="player-names-container" style="display: flex; flex-direction: column; gap: 10px;">
+                            <!-- Dynamic name inputs here -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1rem; margin-bottom: 15px;">사다리 결과</h3>
+                        <div id="player-outcomes-container" style="display: flex; flex-direction: column; gap: 10px;">
+                            <!-- Dynamic outcome inputs here -->
+                        </div>
+                    </div>
                 </div>
-                <button id="to-game" class="submit-btn" style="margin-top: 20px;">사다리 만들기</button>
+                
+                <button id="to-game" class="submit-btn" style="margin-top: 30px;">사다리 만들기</button>
             </div>
         </div>
 
