@@ -248,6 +248,8 @@ const bottomLabels = document.getElementById('bottom-labels');
 const executionInfo = document.getElementById('execution-info');
 const startExecutionBtn = document.getElementById('start-execution-btn');
 const resetGameBtn = document.getElementById('reset-game-btn');
+const historySection = document.getElementById('ladder-history');
+const historyList = document.getElementById('history-list');
 
 let ladderData = {
     players: [],
@@ -307,6 +309,10 @@ if (toGameBtn) {
         ladderData.outcomes = outcomes;
         ladderData.verticalCount = names.length;
         ladderData.executedCount = 0;
+        
+        // Clear history
+        historyList.innerHTML = '';
+        historySection.style.display = 'none';
         
         generateLadderLines();
         setupGameUI();
@@ -415,13 +421,32 @@ if (startExecutionBtn) {
         executionInfo.textContent = `${ladderData.players[playerIdx]}님의 결과를 확인합니다...`;
         startExecutionBtn.disabled = true;
         
-        animatePath(playerIdx, () => {
+        animatePath(playerIdx, (finalIndex) => {
+            const playerName = ladderData.players[playerIdx];
+            const resultValue = ladderData.outcomes[finalIndex];
+            
+            // Show history section
+            historySection.style.display = 'block';
+            
+            // Append result to history list
+            const historyItem = document.createElement('div');
+            historyItem.style.padding = '10px';
+            historyItem.style.background = 'var(--machine-bg)';
+            historyItem.style.borderRadius = '8px';
+            historyItem.style.display = 'flex';
+            historyItem.style.justifyContent = 'space-between';
+            historyItem.style.boxShadow = 'var(--shadow)';
+            historyItem.innerHTML = `<span><strong>${playerName}</strong></span> <span>${resultValue}</span>`;
+            historyList.appendChild(historyItem);
+            
             ladderData.executedCount++;
             startExecutionBtn.disabled = false;
             if (ladderData.executedCount < ladderData.verticalCount) {
                 startExecutionBtn.textContent = '다음 실행하기';
+                executionInfo.textContent = '다음 실행 버튼을 눌러주세요.';
             } else {
                 startExecutionBtn.textContent = '종료';
+                executionInfo.textContent = '모든 실행이 완료되었습니다!';
             }
         });
     });
@@ -448,10 +473,12 @@ function animatePath(startIndex, callback) {
     }
     path.push({ x: (currentV + 1) * spacing, y: h });
 
+    const finalIndex = currentV;
+
     let step = 0;
     function frame() {
         if (step >= path.length - 1) {
-            callback();
+            callback(finalIndex);
             return;
         }
         const end = path[step + 1];
