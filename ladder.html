@@ -33,13 +33,14 @@
         .ladder-game-area {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
             background: rgba(144, 238, 144, 0.2); /* Park green background */
             border-radius: 20px;
             padding: 20px;
             display: none;
             flex-direction: column;
             align-items: center;
+            overflow-x: auto;
         }
         #ladder-canvas {
             background: transparent;
@@ -57,9 +58,10 @@
             border-radius: 5px;
             font-weight: bold;
             font-size: 0.9rem;
-            min-width: 60px;
+            min-width: 50px;
             text-align: center;
             box-shadow: var(--shadow);
+            word-break: break-all;
         }
         .bottom-labels .label-box {
             background: var(--btn-bg);
@@ -101,13 +103,13 @@
     
     <main class="container">
         <div class="form-card ladder-setup" id="setup-card">
-            <h1>사다리 타기 🪜</h1>
+            <h1>사다리 타기</h1>
             
             <!-- Step 1: Participants Count -->
             <div id="step-1" class="step-container active">
                 <p>몇 명이서 참여하시나요?</p>
                 <div class="form-group">
-                    <input type="number" id="player-count" min="2" max="10" value="3">
+                    <input type="number" id="player-count" min="2" max="20" value="3">
                 </div>
                 <button id="to-step-2" class="submit-btn">다음 단계</button>
             </div>
@@ -118,13 +120,13 @@
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                     <div>
-                        <h3 style="font-size: 1rem; margin-bottom: 15px;">참가자 이름</h3>
+                        <h3 style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">참가자 이름</h3>
                         <div id="player-names-container" style="display: flex; flex-direction: column; gap: 10px;">
                             <!-- Dynamic name inputs here -->
                         </div>
                     </div>
                     <div>
-                        <h3 style="font-size: 1rem; margin-bottom: 15px;">사다리 결과</h3>
+                        <h3 style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">사다리 결과</h3>
                         <div id="player-outcomes-container" style="display: flex; flex-direction: column; gap: 10px;">
                             <!-- Dynamic outcome inputs here -->
                         </div>
@@ -147,15 +149,11 @@
 
         <!-- Ad Unit -->
         <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6583728585614609"
-                 data-ad-slot="REPLACE_WITH_YOUR_AD_SLOT_ID"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <a href="#" class="ad-placeholder">
+                <span class="ad-tag">AD</span>
+                <h4>LottoGen Premium</h4>
+                <p>무광고 버전과 더 정교한 분석 시스템을 만나보세요!</p>
+            </a>
         </div>
     </main>
 
