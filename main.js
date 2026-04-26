@@ -549,7 +549,7 @@ function animatePath(startIndex, callback) {
         ctx.fill();
 
         step++;
-        setTimeout(() => requestAnimationFrame(frame), 100);
+        setTimeout(() => requestAnimationFrame(frame), 30);
     }
     frame();
 }
