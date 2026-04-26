@@ -332,22 +332,30 @@ function generateLadderLines() {
 }
 
 function setupGameUI() {
-    const width = Math.max(ladderData.verticalCount * 60, Math.min(window.innerWidth * 0.9, 1000));
+    const vCount = ladderData.verticalCount;
+    // Calculate required width based on player count
+    const minWidth = vCount * 80; // Ensure enough space for each player
+    const width = Math.max(minWidth, Math.min(window.innerWidth * 0.9, 1000));
     const height = 500;
+    
     ladderCanvas.width = width;
     ladderCanvas.height = height;
+    
+    // Ensure label containers match canvas width exactly
+    topLabels.style.width = `${width}px`;
+    bottomLabels.style.width = `${width}px`;
     
     topLabels.innerHTML = '';
     bottomLabels.innerHTML = '';
     
-    const spacing = width / (ladderData.verticalCount + 1);
+    const spacing = width / (vCount + 1);
     
     ladderData.players.forEach((name, i) => {
         const label = document.createElement('div');
         label.className = 'label-box';
         label.textContent = name;
-        label.style.width = '50px';
-        label.style.fontSize = '12px';
+        // Position at exactly the same X as the vertical line
+        label.style.left = `${(i + 1) * spacing}px`;
         topLabels.appendChild(label);
     });
     
@@ -355,8 +363,8 @@ function setupGameUI() {
         const label = document.createElement('div');
         label.className = 'label-box';
         label.textContent = text;
-        label.style.width = '50px';
-        label.style.fontSize = '12px';
+        // Position at exactly the same X as the vertical line
+        label.style.left = `${(i + 1) * spacing}px`;
         bottomLabels.appendChild(label);
     });
     

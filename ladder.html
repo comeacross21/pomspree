@@ -32,36 +32,54 @@
         }
         .ladder-game-area {
             position: relative;
-            width: 100%;
-            max-width: 1000px;
-            background: rgba(144, 238, 144, 0.2); /* Park green background */
+            width: fit-content;
+            max-width: 100%;
+            background: var(--form-card-bg);
             border-radius: 20px;
-            padding: 20px;
+            padding: 30px;
             display: none;
             flex-direction: column;
             align-items: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 auto;
             overflow-x: auto;
         }
         #ladder-canvas {
             background: transparent;
             cursor: pointer;
+            display: block;
         }
         .ladder-labels {
-            display: flex;
-            justify-content: space-between;
+            position: relative;
+            height: 40px;
             width: 100%;
-            padding: 10px 0;
+            margin: 0;
+            padding: 0;
         }
         .label-box {
+            position: absolute;
             background: var(--machine-bg);
-            padding: 5px 10px;
+            padding: 5px 8px;
             border-radius: 5px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             min-width: 50px;
+            max-width: 80px;
             text-align: center;
             box-shadow: var(--shadow);
             word-break: break-all;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .top-labels {
+            margin-bottom: 10px;
+        }
+        .bottom-labels {
+            margin-top: 10px;
         }
         .bottom-labels .label-box {
             background: var(--btn-bg);
