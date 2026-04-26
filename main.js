@@ -334,12 +334,29 @@ if (toGameBtn) {
 
 function generateLadderLines() {
     ladderData.lines = [];
-    const rows = 12; 
+    const vCount = ladderData.verticalCount;
+    // Increase rows for more participants to ensure better scrambling
+    const rows = Math.max(12, vCount * 1.5); 
+    
     for (let r = 0; r < rows; r++) {
-        for (let v = 0; v < ladderData.verticalCount - 1; v++) {
-            if (Math.random() > 0.6) {
+        // Higher probability of bridges for better shuffling
+        for (let v = 0; v < vCount - 1; v++) {
+            if (Math.random() > 0.5) { 
+                // Prevent overlapping horizontal lines
                 if (v > 0 && ladderData.lines.some(l => l.row === r && l.v === v - 1)) continue;
                 ladderData.lines.push({ row: r, v: v });
+            }
+        }
+    }
+    
+    // Safety check: ensure every vertical line has at least some chance to move
+    // by adding a few more guaranteed random bridges if the line count is high
+    if (vCount > 5) {
+        for (let i = 0; i < vCount; i++) {
+            const randomRow = Math.floor(Math.random() * rows);
+            const randomV = Math.floor(Math.random() * (vCount - 1));
+            if (!ladderData.lines.some(l => l.row === randomRow && (l.v === randomV || l.v === randomV - 1 || l.v === randomV + 1))) {
+                ladderData.lines.push({ row: randomRow, v: randomV });
             }
         }
     }
@@ -396,7 +413,8 @@ function drawLadder(highlightPath = null) {
     const h = ladderCanvas.height;
     const vCount = ladderData.verticalCount;
     const spacing = w / (vCount + 1);
-    const rowHeight = (h - 40) / 13;
+    const rows = Math.max(12, vCount * 1.5);
+    const rowHeight = (h - 40) / (rows + 1);
     
     ctx.clearRect(0, 0, w, h);
     ctx.lineCap = 'round';
@@ -469,13 +487,15 @@ function animatePath(startIndex, callback) {
     const ctx = ladderCanvas.getContext('2d');
     const w = ladderCanvas.width;
     const h = ladderCanvas.height;
-    const spacing = w / (ladderData.verticalCount + 1);
-    const rowHeight = (h - 40) / 13;
+    const vCount = ladderData.verticalCount;
+    const spacing = w / (vCount + 1);
+    const rows = Math.max(12, vCount * 1.5);
+    const rowHeight = (h - 40) / (rows + 1);
     
     let currentV = startIndex;
     let path = [{ x: (currentV + 1) * spacing, y: 0 }];
     
-    for (let r = 0; r < 12; r++) {
+    for (let r = 0; r < rows; r++) {
         path.push({ x: (currentV + 1) * spacing, y: (r + 1) * rowHeight + 20 });
         const bridge = ladderData.lines.find(l => l.row === r && (l.v === currentV || l.v === currentV - 1));
         if (bridge) {
