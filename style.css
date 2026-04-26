@@ -402,12 +402,33 @@ h1 {
         font-size: 0.85rem;
     }
     .lotto-ball {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
         flex-shrink: 0;
+    }
+    .lotto-numbers {
+        gap: 8px;
+        flex-wrap: nowrap;
+    }
+    .lotto-machine {
+        padding: 15px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .animation-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    h1 {
+        font-size: 1.6rem;
     }
     .container {
         padding-top: 130px;
+        gap: 0;
+        width: 100%;
+        overflow-x: hidden;
     }
 }
