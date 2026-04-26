@@ -335,28 +335,38 @@ if (toGameBtn) {
 function generateLadderLines() {
     ladderData.lines = [];
     const vCount = ladderData.verticalCount;
-    // Increase rows for more participants to ensure better scrambling
     const rows = Math.max(12, vCount * 1.5); 
     
     for (let r = 0; r < rows; r++) {
-        // Higher probability of bridges for better shuffling
         for (let v = 0; v < vCount - 1; v++) {
             if (Math.random() > 0.5) { 
-                // Prevent overlapping horizontal lines
                 if (v > 0 && ladderData.lines.some(l => l.row === r && l.v === v - 1)) continue;
                 ladderData.lines.push({ row: r, v: v });
             }
         }
     }
     
-    // Safety check: ensure every vertical line has at least some chance to move
-    // by adding a few more guaranteed random bridges if the line count is high
-    if (vCount > 5) {
-        for (let i = 0; i < vCount; i++) {
-            const randomRow = Math.floor(Math.random() * rows);
-            const randomV = Math.floor(Math.random() * (vCount - 1));
-            if (!ladderData.lines.some(l => l.row === randomRow && (l.v === randomV || l.v === randomV - 1 || l.v === randomV + 1))) {
-                ladderData.lines.push({ row: randomRow, v: randomV });
+    // Ensure every vertical line has at least 2 bridges to prevent straight drops
+    for (let v = 0; v < vCount; v++) {
+        let bridgesForThisLine = ladderData.lines.filter(l => l.v === v || l.v === v - 1).length;
+        while (bridgesForThisLine < 2) {
+            const r = Math.floor(Math.random() * rows);
+            // Try to place a bridge either to the left or right of this line
+            const side = Math.random() > 0.5 ? v : v - 1;
+            if (side >= 0 && side < vCount - 1) {
+                if (!ladderData.lines.some(l => l.row === r && (l.v === side || l.v === side - 1 || l.v === side + 1))) {
+                    ladderData.lines.push({ row: r, v: side });
+                    bridgesForThisLine++;
+                }
+            } else {
+                // If side is out of bounds, try the other side
+                const otherSide = side === v ? v - 1 : v;
+                if (otherSide >= 0 && otherSide < vCount - 1) {
+                    if (!ladderData.lines.some(l => l.row === r && (l.v === otherSide || l.v === otherSide - 1 || l.v === otherSide + 1))) {
+                        ladderData.lines.push({ row: r, v: otherSide });
+                        bridgesForThisLine++;
+                    }
+                }
             }
         }
     }
@@ -522,17 +532,22 @@ function animatePath(startIndex, callback) {
         ctx.moveTo(path[0].x, path[0].y);
         for(let i=0; i<=step; i++) ctx.lineTo(path[i].x, path[i].y);
         ctx.stroke();
-        ctx.fillStyle = '#fff';
+
+        // Draw Pac-Man
+        const mouthOpen = (step % 4) * 0.1; // Mouth opening animation
+        ctx.fillStyle = '#ffff00'; // Pac-Man yellow
         ctx.beginPath();
-        ctx.arc(end.x, end.y, 10, 0, Math.PI * 2); 
+        ctx.moveTo(end.x, end.y);
+        // Determine direction for mouth (simplification: always pointing down-ish/side-ish)
+        ctx.arc(end.x, end.y, 12, mouthOpen * Math.PI, (2 - mouthOpen) * Math.PI);
+        ctx.lineTo(end.x, end.y);
         ctx.fill();
-        ctx.strokeStyle = '#ddd';
-        ctx.stroke();
-        ctx.fillStyle = '#fff';
-        ctx.ellipse(end.x - 4, end.y - 10, 3, 8, 0, 0, Math.PI * 2);
-        ctx.ellipse(end.x + 4, end.y - 10, 3, 8, 0, 0, Math.PI * 2);
+        
+        ctx.fillStyle = '#000'; // Eye
+        ctx.beginPath();
+        ctx.arc(end.x + 2, end.y - 6, 2, 0, Math.PI * 2);
         ctx.fill();
-        ctx.stroke();
+
         step++;
         setTimeout(() => requestAnimationFrame(frame), 100);
     }
