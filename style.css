@@ -1,7 +1,7 @@
-
 :root {
     --bg-color: #f0f2f5;
     --text-color: #333;
+    --link-color: #007bff;
     --machine-bg: rgba(255, 255, 255, 0.9);
     --ball-bg: #eee;
     --btn-bg: #007bff;
@@ -17,6 +17,7 @@
 body.dark-mode {
     --bg-color: #1a1a1a;
     --text-color: #f0f2f5;
+    --link-color: #4da3ff;
     --machine-bg: rgba(45, 45, 45, 0.9);
     --ball-bg: #444;
     --btn-bg: #375a7f;
@@ -38,6 +39,16 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--btn-hover);
 }
 
 #falling-coins-canvas {
@@ -88,7 +99,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: var(--btn-bg);
+    color: var(--link-color);
 }
 
 #theme-toggle {
@@ -356,7 +367,7 @@ h1 {
 
 .footer-links a:hover {
     opacity: 1;
-    color: var(--btn-bg);
+    color: var(--link-color);
 }
 
 .copyright {
