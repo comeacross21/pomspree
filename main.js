@@ -566,10 +566,3 @@ if (inquiryForm) {
         }
     });
 }
-mentById('form-status');
-            if (existingStatus) existingStatus.remove();
-            inquiryForm.appendChild(status);
-            setTimeout(() => { if (status) status.remove(); }, 5000);
-        }
-    });
-}
